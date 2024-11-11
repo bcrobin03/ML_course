@@ -23,8 +23,27 @@ def least_squares(y, tx):
     (array([ 0.21212121, -0.12121212]), 8.666684749742561e-33)
     """
     # ***************************************************
-    # COPY YOUR CODE FROM EX03 HERE
+    # INSERT YOUR CODE HERE
     # least squares: TODO
-    # returns optimal weights, MSE
+    # returns mse, and optimal weights
     # ***************************************************
-    raise NotImplementedError
+
+    #we have to solve the equation X.T @ X @ w = X @ y for w
+    #which should be w = (X.T @ X)-¹ @ X @ y
+    # we use a linear solver to solve this equation Ax = b 
+    #where A = X.T @ X and b = X.T @ y
+    N = y.shape[0]
+    D = tx.shape[1]
+    txt = tx.T
+    xTx = txt @ tx
+
+    b = txt @ y
+    b = b.reshape((D,1))
+    
+    w = np.linalg.solve(xTx, b)
+
+    #computes the mean square error
+    mse = 1/N * np.sum((y - tx@w)**2)
+
+    return w, mse
+

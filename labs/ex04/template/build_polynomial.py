@@ -24,4 +24,4 @@ def build_poly(x, degree):
     # this function should return the matrix formed
     # by applying the polynomial basis to the input data
     # ***************************************************
-    raise NotImplementedError
+    return np.flip(np.vander(x, degree+1), axis = 1)
